@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  PotionBookView.swift
 //  PotionBook
 //
 //  Created by Tessa Lee on 4/9/25.

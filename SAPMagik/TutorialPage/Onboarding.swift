@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  OnboardingView.swift
 //  Onboarding
 //
 //  Created by Tessa Lee on 4/9/25.
@@ -9,7 +9,7 @@ import SwiftUI
 
 var totalViews = 6
 
-struct ContentView: View {
+struct OnboardingView: View {
     @AppStorage("currentView") var currentView = 1
     
     var body: some View {
@@ -53,10 +53,10 @@ struct ContentView: View {
         } else if currentView == 6 {
             Image("rotate")
                 .resizable()
-                .ignoresSafeArea()
+                .scaledToFill()
+                .rotationEffect(.degrees(-90))
                 .overlay(
                     VStack {
-                    Spacer(minLength: 0)
                         HStack {
                             Spacer()
                             Button(
@@ -165,5 +165,5 @@ struct WalkthroughScreen: View {
 
 
 #Preview {
-    ContentView()
+    OnboardingView()
 }
