@@ -20,6 +20,18 @@ struct HomeView: View {
                     Text("Animal catching game")
                 }
                 
+                NavigationLink(destination: ColorMatching()) {
+                    Text("Color matching game")
+                }
+                
+                NavigationLink(destination: PlantView()) {
+                    Text("Grow your plant")
+                }
+                
+                NavigationLink(destination: FallingCrystals()) {
+                    Text("Falling crystals game")
+                }
+                
                 //remove later
                 Button("Reset onboarding") {
                     withAnimation {

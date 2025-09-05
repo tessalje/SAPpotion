@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  ContentView.swift
 //  Onboarding
 //
 //  Created by Tessa Lee on 4/9/25.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-var totalViews = 5
+var totalViews = 6
 
-struct OnboardingView: View {
+struct ContentView: View {
     @AppStorage("currentView") var currentView = 1
     
     var body: some View {
@@ -21,7 +21,7 @@ struct OnboardingView: View {
                 bgColor: "PinkColor",
                 img: "welcome"
             )
-                .transition(.opacity)
+            .transition(.opacity)
         } else if currentView == 2 {
             WalkthroughScreen(
                 title: "Potion ingredients",
@@ -50,15 +50,39 @@ struct OnboardingView: View {
                 bgColor: "PurpleColor",
                 img: "intro_4"
             )
+        } else if currentView == 6 {
+            Image("rotate")
+                .resizable()
+                .ignoresSafeArea()
+                .overlay(
+                    VStack {
+                    Spacer(minLength: 0)
+                        HStack {
+                            Spacer()
+                            Button(
+                                action:{
+                                    withAnimation(.easeOut) {
+                                        currentView += 1
+                                        
+                                    }
+                                },
+                                label: {
+                                    Image(systemName: "arrowshape.right.circle.fill")
+                                        .foregroundColor(Color.white)
+                                        .font(.system(size: 35.0, weight: .semibold))
+                                        .frame(width: 55, height: 55)
+                                }
+                            )
+                        }
+                    }
+                )
         }
-        
-        if currentView == 6 {
+        if currentView == 7 {
             HomeView()
         }
-        
     }
 }
-
+    
 struct WalkthroughScreen: View {
     
     @AppStorage("currentView") var currentView = 1
@@ -100,7 +124,7 @@ struct WalkthroughScreen: View {
                                     .foregroundColor(currentView == i ? .white : .white.opacity(0.5))
                                     .frame(width: 25, height: 5)
                             }
-                                                    
+                            
                             Spacer()
                             
                             Button(
@@ -129,7 +153,7 @@ struct WalkthroughScreen: View {
             .background(LinearGradient(colors: [Color(bgColor),Color("backgroundColor")],startPoint: .top, endPoint: .bottom))
             .toolbar {
                 Button(action:{
-                    currentView = 6
+                    currentView = 7
                 }, label: {
                     Text("Skip")
                         .font(.title2)
@@ -141,5 +165,5 @@ struct WalkthroughScreen: View {
 
 
 #Preview {
-    OnboardingView()
+    ContentView()
 }
