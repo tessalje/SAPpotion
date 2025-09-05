@@ -11,7 +11,7 @@ struct PlantView: View {
     @State private var isVisible: Bool = true
     var body: some View {
         VStack {
-            Button("Reset") {
+            Button("Reset plant") {
                 isVisible = true
                 isClicked = false
             }
