@@ -1,5 +1,5 @@
 //
-//  GameView.swift
+//  ColorGameView.swift
 //  PhotosAndCameraColorGame
 //
 //  Created by Tristan Chay on 27/6/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GameView: View {
+struct ColorGameView: View {
 
     @Binding var gameState: GameState
     @Binding var supplementalDescription: String?

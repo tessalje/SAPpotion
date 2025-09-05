@@ -12,7 +12,7 @@ struct ColorMatching: View {
             state: $gameState,
             supplementalDescription: $supplementalDescription
         ) {
-            GameView(
+            ColorGameView(
                 gameState: $gameState,
                 supplementalDescription: $supplementalDescription
             )

@@ -21,10 +21,13 @@ struct PlantView: View {
                     .resizable()
                     .frame(width: 200,height: 200)
                     .padding(.leading, 150)
-                    .rotationEffect(.degrees(45))
+                    .rotationEffect(isClicked ? .degrees(0): .degrees(45))
+                    .animation(.easeInOut(duration: 0.7), value: isClicked)
                     .onTapGesture {
                         isClicked.toggle()
-                        isVisible = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            isVisible = false
+                        }
                     }
             } else {
                 Text("")
@@ -48,7 +51,7 @@ struct PlantView: View {
                         .offset(x:0, y:-10) //u can change this
                 }
             }
-            .animation(.easeInOut(duration: 0.6), value: isClicked)
+            .animation(.easeInOut(duration: 0.5).delay(0.8), value: isClicked)
         }
     }
 }
