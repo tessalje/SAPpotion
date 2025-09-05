@@ -96,7 +96,7 @@ struct Challenge2ContainerView<Content: View>: View {
                 }
                 .disabled(!isContentDespawned)
                 
-                NavigationLink(destination: HomePagePlaceholder()) {
+                NavigationLink(destination: HomeView()) {
                     Text("Go to Homepage")
                         .frame(width: 100)
                         .padding()
