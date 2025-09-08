@@ -28,7 +28,7 @@ struct HomeView: View {
                     Text("Grow your plant")
                 }
                 
-                NavigationLink(destination: FallingCrystals()) {
+                NavigationLink(destination: FallingCrystal()) {
                     Text("Falling crystals game")
                 }
                 

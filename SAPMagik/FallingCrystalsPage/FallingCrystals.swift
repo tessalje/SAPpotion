@@ -19,7 +19,6 @@ class MotionManager: ObservableObject {
             guard let motion = motion else { return }
             
             self?.x = motion.gravity.x
-            self?.y = motion.gravity.y
         }
     }
 }
@@ -27,7 +26,7 @@ class MotionManager: ObservableObject {
 
 struct FallingCrystal: View {
     let randomy = Int.random(in: 1...100)
-    @State var baskety:Int = 120
+    @State var baskety:Int = 55
     @State var basketx:Int = 0
     
     @State var crystalLocation:Int = 0
