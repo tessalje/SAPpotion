@@ -25,7 +25,7 @@ struct PlantView: View {
                     Button(action: {
                         isDisabled.toggle()
                         isClicked.toggle()
-                        print("isDisabled =", isDisabled)
+                        print("isDisabled: ", isDisabled)
                     }) {
                         Image("watercan")
                             .resizable()
