@@ -13,7 +13,7 @@ struct HomeView: View {
             VStack {
                 Text("home page")
                 NavigationLink(destination: PotionBookView()) {
-                    Text("Potion receipe book")
+                    Text("Potion receipe book ")
                 }
                 
                 NavigationLink(destination: CatchingAnimalView()) {
