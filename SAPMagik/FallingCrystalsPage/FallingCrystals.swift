@@ -29,6 +29,8 @@ struct FallingCrystal: View {
     @State var baskety:Int = 55
     @State var basketx:Int = 0
     
+    @State var score: Int = 0
+    
     @State var crystalLocation:Int = 0
     @State var basketLocation:Int = 0
     
@@ -41,6 +43,7 @@ struct FallingCrystal: View {
         ]
     
     @StateObject private var motion = MotionManager()
+    @State var isGame = true
     
     var body: some View {
         ZStack {
@@ -48,13 +51,19 @@ struct FallingCrystal: View {
                 .resizable()
                 .ignoresSafeArea()
             VStack {
+                Text("SCORE:\(score)")
+                    .font(.system(.title, design: .monospaced))
+                    .padding(10)
+                    .background(Color.white.opacity(0.7))
+                    .cornerRadius(40)
+                
                 HStack {
-                    Crystals(img: "blue_crystal", speed: 9)
-                    Crystals(img: "green_crystal", speed: 10)
-                    Crystals(img: "purple_crystal", speed: 8)
-                    Crystals(img: "yellow_crystal", speed: 9)
-                    Crystals(img: "pink_crystal", speed: 10)
-                    Crystals(img: "rainbow_crystal", speed: 7)
+                    Crystals(img: "blue_crystal", speed: 9, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
+                    Crystals(img: "green_crystal", speed: 10, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
+                    Crystals(img: "purple_crystal", speed: 8, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
+                    Crystals(img: "yellow_crystal", speed: 9, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
+                    Crystals(img: "pink_crystal", speed: 10, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
+                    Crystals(img: "rainbow_crystal", speed: 7, isGame: $isGame, basketx: $basketx, baskety: $baskety, score: $score)
                 }
                 
                 HStack {
@@ -69,9 +78,9 @@ struct FallingCrystal: View {
                         .resizable()
                         .frame(width: 100, height: 100)
                         .offset(x: CGFloat(basketx), y:CGFloat(baskety))
-                        .offset(x: Double(basketx) + motion.x * 150, y: Double(baskety) + motion.y * 150)
-                        .animation(.easeOut(duration: 0.1), value: motion.x)
-                        .animation(.easeOut(duration: 0.1), value: motion.y)
+                        .offset(x: Double(basketx) + motion.x * 100, y: Double(baskety) + motion.y * 100)
+                        .animation(.easeOut(duration: 0.05), value: motion.x)
+                        .animation(.easeOut(duration: 0.05), value: motion.y)
                     
                     Button(">") {
                         basketx += 20
@@ -80,6 +89,7 @@ struct FallingCrystal: View {
                     .buttonStyle(.borderedProminent)
                     .offset(x: 250, y: 120)
                 }
+                Spacer()
             }
         }
     }
@@ -95,6 +105,12 @@ struct FallingCrystal: View {
 struct Crystals: View {
     var img: String
     var speed: Int
+    @Binding var isGame: Bool
+    
+    @Binding var basketx: Int
+    @Binding var baskety: Int
+    @Binding var score: Int
+    
     @State private var randomx = 0
     @State private var starting = -480
     @State private var rotate = 0
@@ -105,17 +121,39 @@ struct Crystals: View {
             .frame(width: 60, height: 70)
             .rotationEffect(.degrees(Double(rotate)))
             .offset(x: CGFloat(randomx), y: CGFloat(starting))
-            .animation(Animation.timingCurve(0.55, 0, 1, 0.45).speed(0.1).delay(Double.random(in: 0...2)).repeatForever(autoreverses: false), value: starting)
-            .animation(Animation.easeInOut(duration: TimeInterval(speed)), value: randomx)
+            .animation(isGame ? Animation
+                .timingCurve(0.55, 0, 1, 0.45)
+                .speed(0.1)
+                .delay(Double.random(in: 0...2))
+                .repeatForever(autoreverses: false) :
+                    .default, value: starting)
+            .animation(isGame ? Animation.easeInOut(duration: TimeInterval(speed)) : .default, value: randomx)
             .onAppear() {
-                starting = 700
-                rotate = 500
-                randomx = Int.random(in: -750...750)
-                
-                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
-                    randomx = Int.random(in: -350...350)
-                }
+                falling()
             }
+    }
+    
+    private func falling() {
+        guard isGame else { return }
+        
+        starting = -480
+        randomx = Int.random(in: -350...350)
+        rotate = 0
+        
+        withAnimation(.linear(duration: TimeInterval(speed))) {
+            starting = 700
+            rotate = 720
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(speed)/2) {
+            if abs(basketx - randomx) < 50 && abs(baskety - starting) < 50 {
+                score += 1
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(speed) + Double.random(in: 0...1.5)) {
+            if isGame { falling() }
+        }
     }
 }
 

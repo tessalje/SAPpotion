@@ -96,15 +96,13 @@ struct Challenge2ContainerView<Content: View>: View {
                 }
                 .disabled(!isContentDespawned)
                 
-                NavigationLink(destination: HomeView()) {
-                    Text("Go to Homepage")
-                        .frame(width: 100)
+                NavigationLink(destination: ContentView()) {
+                    Text("Return to Lab")
                         .padding()
-                        .background(Color.blue)
+                        .background(Color("PinkColor"))
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-                .disabled(!isContentDespawned)
             }
             .offset(y: isContentDespawned ? 0 : 100)
             .padding()

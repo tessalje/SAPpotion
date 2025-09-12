@@ -78,7 +78,7 @@ struct OnboardingView: View {
                 )
         }
         if currentView == 7 {
-            HomeView()
+            StartView()
         }
     }
 }

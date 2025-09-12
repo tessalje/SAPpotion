@@ -1,5 +1,5 @@
 //
-//  ColorGameView.swift
+//  GameView.swift
 //  CatchingAnimal
 //
 //  Created by Tessa Lee on 4/9/25.
