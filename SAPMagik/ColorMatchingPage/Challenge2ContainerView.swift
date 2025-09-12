@@ -61,7 +61,7 @@ struct Challenge2ContainerView<Content: View>: View {
             
             Spacer()
             
-            Image(state == .success ? "potion" : "failed")
+            Image(state == .success ? "potion2" : "failed")
                 .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -98,10 +98,10 @@ struct Challenge2ContainerView<Content: View>: View {
                 
                 NavigationLink(destination: ContentView()) {
                     Text("Return to Lab")
-                        .padding()
+                        .padding(8)
+                        .foregroundStyle(.black)
                         .background(Color("PinkColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(10)
                 }
             }
             .offset(y: isContentDespawned ? 0 : 100)
